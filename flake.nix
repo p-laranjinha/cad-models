@@ -73,7 +73,12 @@
             # Add below dependencies that we would like to use from nixpkgs, which will add them to
             #  PYTHONPATH and thus make them accessible from within the venv.
             pythonPackages.numpy
-            #pythonPackages.pyqt6
+
+            pkgs.nodejs_23 # For pyright
+            # pythonPackages.python-lsp-server
+            # pythonPackages.python-lsp-ruff
+            # pythonPackages.pylsp-mypy
+            # pythonPackages.pylsp-rope
           ] ++ systemPackages;
 
           # Run this command, only after creating the virtual environment
@@ -91,7 +96,7 @@
             #export QT_QPA_PLATFORM_PLUGIN_PATH="{pkgs.kdePackages.qtbase}/lib/qt-6/plugins/platforms"
             #export QT_QPA_PLATFORM="minimal"
 
-            alias cq-editor="QT_MAC_WANTS_LAYER=1 QT_QPA_PLATFORM=xcb PYOPENGL_PLATFORM=x11 ${cq-editor-build123d}/CQ-editor"
+            alias cq-editor="QT_MAC_WANTS_LAYER=1 QT_QPA_PLATFORM=xcb PYOPENGL_PLATFORM=x11 nohup ${cq-editor-build123d}/CQ-editor &"
 
             pip install -q -r requirements.txt
           '';

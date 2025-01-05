@@ -1,2 +1,4 @@
 cadquery
 build123d
+yacv-server
+git+https://github.com/Ruudjhuu/gridfinity_build123d

@@ -10,60 +10,49 @@
     cq-editor.url = "github:marcus7070/cq-flake";
   };
 
-  outputs = { self, nixpkgs, ... }:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
-    in
-    {
-      devShells.${system} = let
-        python = pkgs.python311;
-        pythonPackages = python.pkgs;
-        # A set of system dependencies for Python modules.
-        # They act as build inputs and are used to configure
-        # LD_LIBRARY_PATH in the shell.
-        systemPackages = with pkgs; [
-            # Required by CQ-editor.
-            zlib
-            xorg.libxcb
-            
-            # Required when script is executed with python.
-            stdenv.cc.cc.lib
-            xorg.libX11
-            xorg.libXrender
-            expat
+  outputs = {nixpkgs, ...}: let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {inherit system;};
+  in {
+    devShells.${system} = let
+      python = pkgs.python311;
+      pythonPackages = python.pkgs;
+      # A set of system dependencies for Python modules.
+      # They act as build inputs and are used to configure
+      # LD_LIBRARY_PATH in the shell.
+      systemPackages = with pkgs; [
+        # Required by CQ-editor.
+        zlib
+        xorg.libxcb
 
-            # Required in both situations.
-            libGL
+        # Required when script is executed with python.
+        stdenv.cc.cc.lib
+        xorg.libX11
+        xorg.libXrender
+        expat
 
-            # May be required in the future.
-            #xorg.libXi
-            #glib
-            #kdePackages.qtbase
-            #libsForQt5.qt5.wrapQtAppsHook
-            #libsForQt5.qt5.qtwayland
-          ];
+        # Required in both situations.
+        libGL
 
-        # For of CQ-Editor with support for build123d.
-        cq-editor-build123d = (pkgs.stdenv.mkDerivation {
-            pname = "cq-editor-build123d";
-            version = "0.30-dev-7";
-            src = pkgs.fetchzip {
-              url = "https://github.com/jdegenstein/jmwright-CQ-Editor/releases/download/0.30-dev-7/CQ-editor-Linux-x86_64.zip";
-              sha256 = "sha256-EcCFYaYAWybmW9yRkEfpyGThQbouXi/kHtB5OIYRX9g=";
-              stripRoot = false; # Required for zip files with multiple root files.
-            };
-            installPhase = ''
-              cp -r $src/CQ-editor $out
-              chmod +x $out/CQ-editor
-            '';
-        }).out;
-      in{
-        default = pkgs.mkShell {
-          venvDir = ".venv";
+        # May be required in the future.
+        #xorg.libXi
+        #glib
+        #kdePackages.qtbase
+        #libsForQt5.qt5.wrapQtAppsHook
+        #libsForQt5.qt5.qtwayland
+      ];
+      yacv-frontend = pkgs.fetchzip {
+        url = "https://github.com/yeicor-3d/yet-another-cad-viewer/releases/download/v0.9.3/frontend.zip";
+        sha256 = "sha256-d5qKs9h4q9/hquVgWFb10KSE2gWTSAZQgYo9l0bzdVM=";
+      };
+    in {
+      default = pkgs.mkShell {
+        venvDir = ".venv";
 
-          buildInputs = [
-            cq-editor-build123d
+        buildInputs =
+          [
+            yacv-frontend
+            pkgs.ungoogled-chromium
 
             # A Python interpreter including the 'venv' module is required to bootstrap the environment.
             pythonPackages.python
@@ -79,30 +68,35 @@
             # pythonPackages.python-lsp-ruff
             # pythonPackages.pylsp-mypy
             # pythonPackages.pylsp-rope
-          ] ++ systemPackages;
+          ]
+          ++ systemPackages;
 
-          # Run this command, only after creating the virtual environment
-          postVenvCreation = ''
-            unset SOURCE_DATE_EPOCH
-          '';
+        # Run this command, only after creating the virtual environment
+        postVenvCreation = ''
+          unset SOURCE_DATE_EPOCH
+        '';
 
-          # Now we can execute any commands within the virtual environment.
-          # This is optional and can be left out to run pip manually.
-          postShellHook = ''
-            unset SOURCE_DATE_EPOCH
+        # Now we can execute any commands within the virtual environment.
+        # This is optional and can be left out to run pip manually.
 
-            export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath systemPackages}
-            # https://discourse.nixos.org/t/python-qt-qpa-plugin-could-not-find-xcb/8862
-            #export QT_QPA_PLATFORM_PLUGIN_PATH="{pkgs.kdePackages.qtbase}/lib/qt-6/plugins/platforms"
-            #export QT_QPA_PLATFORM="minimal"
+        postShellHook = ''
+          unset SOURCE_DATE_EPOCH
 
-            alias cq-editor="QT_MAC_WANTS_LAYER=1 QT_QPA_PLATFORM=xcb PYOPENGL_PLATFORM=x11 nohup ${cq-editor-build123d}/CQ-editor &"
+          export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath systemPackages}
+          # https://discourse.nixos.org/t/python-qt-qpa-plugin-could-not-find-xcb/8862
+          #export QT_QPA_PLATFORM_PLUGIN_PATH="{pkgs.kdePackages.qtbase}/lib/qt-6/plugins/platforms"
+          #export QT_QPA_PLATFORM="minimal"
 
-            pip install -q -r requirements.txt
-          '';
-        };
+          alias yacv-frontend="nohup ${pkgs.writeShellScript "yacv-frontend" ''
+            python -m http.server -d ${yacv-frontend} &
+            P1=$!
+            chromium --app="http://0.0.0.0:8000"
+            kill $P1
+          ''} &"
+
+          pip install -q -r requirements.txt
+        '';
       };
     };
-
-
+  };
 }

@@ -1,3 +1,4 @@
+import os
 from build123d import (
     Axis,
     CenterArc,
@@ -6,10 +7,11 @@ from build123d import (
     Line,
     Location,
     Polyline,
-    export_stl,
+    export_step,
     extrude,
     make_face,
 )
+from yacv_server import show
 
 OPEN_DEGREE = 180
 
@@ -118,10 +120,10 @@ inner_hinge_hole = CenterArc(
 )
 
 # Extrusions
-top_full_arc_face = make_face(top_arc + top_clip)
+top_full_arc_face = make_face((top_arc + top_clip).edges())
 top_full_arc_part = extrude(top_full_arc_face, ARC_HALF_HEIGHT, both=True)
 
-top_hinge_connection_face = make_face(top_hinge_connection)
+top_hinge_connection_face = make_face(top_hinge_connection.edges())
 top_hinge_connection_part = extrude(
     top_hinge_connection_face, ARC_HALF_HEIGHT, both=True
 )
@@ -129,18 +131,18 @@ top_hinge_connection_part -= extrude(
     top_hinge_connection_face, ARC_HALF_HEIGHT / 2, both=True
 )
 
-inner_hinge_face = make_face(inner_hinge)
+inner_hinge_face = make_face(inner_hinge.edges())
 inner_hinge_part = extrude(inner_hinge_face, ARC_HALF_HEIGHT, both=True)
 top_hinge_connection_part -= inner_hinge_part
 
-bottom_full_arc_face = make_face(bottom_arc + bottom_clip)
+bottom_full_arc_face = make_face((bottom_arc + bottom_clip).edges())
 bottom_full_arc_part = extrude(bottom_full_arc_face, ARC_HALF_HEIGHT, both=True)
 
-bottom_hinge_connection_face = make_face(bottom_hinge_connection)
+bottom_hinge_connection_face = make_face(bottom_hinge_connection.edges())
 bottom_hinge_connection_part = extrude(
     bottom_hinge_connection_face, ARC_HALF_HEIGHT / 2 - TOLERANCE_GAP, both=True
 )
-inner_hinge_hole_face = make_face(inner_hinge_hole)
+inner_hinge_hole_face = make_face(inner_hinge_hole.edges())
 bottom_hinge_connection_part -= extrude(
     inner_hinge_hole_face, ARC_HALF_HEIGHT, both=True
 )
@@ -161,10 +163,9 @@ bottom_part = bottom_part.rotate(
     ).to_axis(),
     OPEN_DEGREE,
 )
+
 part = Compound([top_part, bottom_part])
+export_step(part, os.path.splitext(__file__)[0] + ".step")
 
-# show_object is a CQ-editor thing.
-if "show_object" in globals():
-    show_object(part, name="Part", options=dict(color="white"))  # pyright: ignore
-
-export_stl(part, "./grandma.stl")
+part.color = (0.3, 0.3, 0.3, 1)
+show(part, names="Part")  # pyright: ignore

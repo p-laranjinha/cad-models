@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg1"
+   width="413"
+   height="434"
+   viewBox="0 0 413 434"
+   sodipodi:docname="pomegranates_inner_inner.svg"
+   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <linearGradient
+       id="swatch9"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop9" />
+    </linearGradient>
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect2"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath4">
+      <g
+         id="g5">
+        <g
+           inkscape:label="Clip"
+           id="use4"
+           clip-path="url(#clipPath4)">
+          <g
+             id="g34"
+             inkscape:label="g2941">
+            <path
+               style="display:inline;opacity:1;fill:none;fill-opacity:0.119748;fill-rule:nonzero;stroke:#471d1d;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+               d="m 294.55888,155.55134 c -5.71099,-5.59677 -5.95218,-5.93872 -7.3628,-9.11843 -1.01486,-2.25108 -1.03236,-8.37201 -0.21705,-11.11643 1.11405,-3.70272 0.91035,-5.19698 9.62309,-13.84142 0.63492,0.38115 -0.51719,0.71449 1.25635,2.32728 3.58527,3.2603 6.36864,10.2375 6.52122,12.04144 0.21929,3.77811 0.32019,5.94816 -0.19775,8.83215 -0.50674,2.40553 -2.88924,6.65563 -5.18641,7.90372 -1.86834,1.0151 -2.24982,1.34904 -4.43666,2.97169 z"
+               id="path33"
+               sodipodi:nodetypes="ccccsccscc"
+               inkscape:label="Outer cut" />
+            <path
+               style="display:inline;opacity:1;fill:none;fill-opacity:0;fill-rule:nonzero;stroke:#471d1d;stroke-width:0.5;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+               d="m 295.54755,152.4535 c -0.73645,-0.60431 -2.3119,-1.97713 -3.07786,-2.99315 -1.77198,-2.35048 -2.87171,-6.62488 -2.9281,-7.04278 -0.23438,-2.70237 -0.2416,-1.89407 0.13984,-4.59644 1.86783,-6.34821 3.22323,-10.55589 7.86084,-14.32349 l -2.02201,1.88081 c 0.711,0.68811 1.15723,1.83718 2.8615,2.02865 0.76692,0.26677 2.19975,1.21441 3.75696,8.83215 0.49097,2.45363 0.44018,4.13384 0.26366,6.2616 0.0768,0.13215 -0.0703,3.13886 -3.92408,7.05254 -1.86597,0.59148 -1.94193,1.85211 -2.93074,2.90011 z"
+               id="path34"
+               sodipodi:nodetypes="cscccccccccc"
+               inkscape:label="Inner cut" />
+          </g>
+        </g>
+      </g>
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="17.06258"
+     inkscape:cx="287.6177"
+     inkscape:cy="134.85651"
+     inkscape:window-width="2560"
+     inkscape:window-height="1368"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer3"
+     showguides="false" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="SVG"
+     inkscape:highlight-color="#ffffff"
+     style="display:inline">
+    <g
+       id="g15"
+       inkscape:label="Pomegranates"
+       style="display:inline;fill:#000000"
+       transform="translate(-1.5215876e-6)">
+      <g
+         id="g68"
+         inkscape:label="Top right (reference)"
+         style="display:inline">
+        <path
+           style="color:#000000;fill:#471d1d;stroke-linejoin:round;-inkscape-stroke:none"
+           d="m 297.29102,123.18754 c -0.0915,0.0861 -0.17711,0.17835 -0.26567,0.26753 -4.47276,3.7723 -5.90112,8.04313 -7.72852,14.2539 -0.38989,1.58754 -0.29617,3.1372 -0.15428,4.74215 0.0109,0.14983 0.12618,0.59037 0.24614,1.0195 0.14104,0.50452 0.34232,1.15951 0.59766,1.87696 0.51068,1.43489 1.23185,3.11697 2.16406,4.35351 0.82041,1.08825 2.39274,2.4472 3.14258,3.0625 0.16094,0.13109 0.39987,0.11803 0.54492,-0.0351 0.54584,-0.57851 0.82385,-1.18321 1.16992,-1.66211 0.79169,-1.09556 1.51758,-0.98793 1.75586,-1.23243 1.96104,-1.99151 2.99208,-3.76613 3.52149,-5.07421 0.2647,-0.65405 0.40422,-1.19055 0.47265,-1.58204 0.0409,-0.23388 0.0679,-0.47466 0.0546,-0.64843 0.21846,-2.14143 0.0897,-4.26002 -0.28348,-6.37718 -0.96782,-4.39356 -2.35392,-8.27298 -5.55469,-11.50195 l 0.85351,-0.87305 c 0.34754,-0.35645 -0.15456,-0.89914 -0.53675,-0.5895 z"
+           id="path36"
+           sodipodi:nodetypes="cccssssccscsssccccc" />
+      </g>
+      <g
+         id="g35"
+         inkscape:label="Bottom right"
+         style="display:inline"
+         transform="matrix(-0.7328257,-0.68041641,-0.68041641,0.7328257,581.57033,414.11011)">
+        <use
+           x="0"
+           y="0"
+           xlink:href="#path36"
+           id="use1" />
+      </g>
+      <g
+         id="g103"
+         inkscape:label="Bottom left"
+         style="display:inline;opacity:1"
+         transform="rotate(-43.052054,438.53963,421.82886)">
+        <use
+           x="0"
+           y="0"
+           xlink:href="#path36"
+           id="use36" />
+      </g>
+      <g
+         id="g102"
+         inkscape:label="Top left"
+         style="display:inline;opacity:1"
+         transform="translate(-173.92557,0.07307791)">
+        <use
+           x="0"
+           y="0"
+           xlink:href="#path36"
+           id="use68" />
+      </g>
+    </g>
+  </g>
+</svg>

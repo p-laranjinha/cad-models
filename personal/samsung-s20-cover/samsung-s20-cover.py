@@ -25,25 +25,33 @@ phone = scale(
         (0, 0, -(MODEL_PHONE_DEPTH * PHONE_DEPTH / MODEL_PHONE_ACTUAL_DEPTH) / 2 + 0.7)
     )
 )
-cover = fillet(
+cover = chamfer(
     fillet(
-        extrude(
-            Rectangle(MODEL_PHONE_WIDTH + 1.2, MODEL_PHONE_HEIGHT + 2),
-            -MODEL_PHONE_DEPTH,
+        fillet(
+            extrude(
+                Rectangle(MODEL_PHONE_WIDTH + 1.2, MODEL_PHONE_HEIGHT + 2),
+                -MODEL_PHONE_DEPTH - 0.5,
+            )
+            .move(Location((0, 0, 0.5)))
+            .edges()
+            .filter_by(Axis.Z),
+            7,
         )
         .edges()
-        .filter_by(Axis.Z),
-        7,
+        .filter_by(Plane.XY)
+        .group_by(Axis.Z)[-1],
+        2,
     )
     .edges()
-    .filter_by(Plane.XY),
+    .filter_by(Plane.XY)
+    .group_by(Axis.Z)[0],
     2,
 )
 right_hole = (
-    (extrude(Rectangle(8, 50), -5).move(Location((34, 29))))
+    (extrude(Rectangle(8, 50.5), -5.5).move(Location((34, 28.5, 0.5))))
     - fillet(
         extrude(Rectangle(8, 8), -6)
-        .move(Location((34, 4)))
+        .move(Location((34, 3.5, 0.5)))
         .edges()
         .filter_by(Axis.X)
         .group_by(Axis.Z)[-1]
@@ -52,7 +60,7 @@ right_hole = (
     )
     - fillet(
         extrude(Rectangle(8, 8), -6)
-        .move(Location((34, 54)))
+        .move(Location((34, 54, 0.5)))
         .edges()
         .filter_by(Axis.X)
         .group_by(Axis.Z)[-1]
@@ -60,8 +68,8 @@ right_hole = (
         4,
     )
     + fillet(
-        extrude(Rectangle(8, 42), -10)
-        .move(Location((38, 29)))
+        extrude(Rectangle(8, 42.5), -10)
+        .move(Location((38, 28.5)))
         .edges()
         .filter_by(Axis.Z)
         .group_by(Axis.X)[0],
@@ -69,10 +77,10 @@ right_hole = (
     )
 )
 bottom_hole = (
-    (extrude(Rectangle(58, 8), -7).move(Location((0, -74))))
+    (extrude(Rectangle(58, 8), -7.5).move(Location((0, -74, 0.5))))
     - fillet(
-        extrude(Rectangle(8, 8), -7)
-        .move(Location((29, -74)))
+        extrude(Rectangle(8, 8), -7.5)
+        .move(Location((29, -74, 0.5)))
         .edges()
         .filter_by(Axis.Y)
         .group_by(Axis.Z)[-1]
@@ -80,8 +88,8 @@ bottom_hole = (
         5,
     )
     - fillet(
-        extrude(Rectangle(8, 8), -7)
-        .move(Location((-29, -74)))
+        extrude(Rectangle(8, 8), -7.5)
+        .move(Location((-29, -74, 0.5)))
         .edges()
         .filter_by(Axis.Y)
         .group_by(Axis.Z)[-1]
@@ -90,17 +98,25 @@ bottom_hole = (
     )
     + fillet(
         extrude(Rectangle(50, 8), -10)
-        .move(Location((0, -78.5)))
+        .move(Location((0, -79.5)))
         .edges()
         .filter_by(Axis.Z)
         .group_by(Axis.Y)[-1],
         1,
     )
+    # + chamfer(
+    #     extrude(Rectangle(50, 8), -2.4).move(Location((0, -79.5 + 1, -9.4 + 1))).edges()
+    #     # .filter_by(Axis.X)
+    #     .group_by(Axis.Z)[-1],
+    #     1,
+    # )
 )
 
 top_hole = extrude(Circle(1).rotate(Axis.X, 90), 8).move(Location((13, 80, -3.3)))
 
-screen_hole = fillet(extrude(Rectangle(66.8, 147.7), -2).edges().filter_by(Axis.Z), 7)
+screen_hole = fillet(
+    extrude(Rectangle(66.8, 147.7), 2, both=True).edges().filter_by(Axis.Z), 7
+)
 
 inside_back_flattener = fillet(
     extrude(Rectangle(64.8, 147.7), -8.2).edges().filter_by(Axis.Z), 7

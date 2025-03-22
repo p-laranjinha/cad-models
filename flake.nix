@@ -95,6 +95,10 @@
           ''} &"
 
           pip install -q -r requirements.txt
+
+          echo 'Run "yacv-frontend" to open the interface to view CAD models.'
+          echo 'Run "python <file-with-build123d-cad-models>.py" to build and show the models.'
+          echo 'Run ":!python %" in NVIM to run the current file with python.'
         '';
       };
     };

@@ -7,7 +7,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    cq-editor.url = "github:marcus7070/cq-flake";
   };
 
   outputs = {nixpkgs, ...}: let

@@ -29,8 +29,8 @@ for bin_name, bin_props in bins.items():
     height = bin_size[1]
     depth = bin_size[2]
     bin_bottom_faces = [Rectangle(width, height)]
-    width_inner = width - WALL_WIDTH
-    height_inner = height - WALL_WIDTH
+    width_inner = width - WALL_WIDTH * 2
+    height_inner = height - WALL_WIDTH * 2
     depth_inner = depth - WALL_WIDTH
     if width > MAX_PRINTABLE_LENGTH:
         divider_line = [

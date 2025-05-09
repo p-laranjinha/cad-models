@@ -3,7 +3,7 @@ from build123d import *  # pyright: ignore
 from yacv_server import show
 
 THICKNESS_SIDE = 1
-THICKNESS_BACK = 0.5  # after camera
+THICKNESS_BACK = 0.1  # after camera
 THICKNESS_FRONT = 0
 BUTTONS_SIDE_SPACING = 2
 
@@ -20,8 +20,8 @@ HEIGHT_MIN = -75.7908
 HEIGHT_MAX = 75.6533
 CAMERA_WIDTH_MIN = 10.019 + WIDTH_OFFSET
 CAMERA_WIDTH_MAX = 27.299 + WIDTH_OFFSET
-CAMERA_HEIGHT_MIN = 34.1492
-CAMERA_HEIGHT_MAX = 68.7772
+CAMERA_HEIGHT_MIN = 34.1492 - 0.3
+CAMERA_HEIGHT_MAX = 68.7772 + 0.1
 BUTTONS_HEIGHT_MIN = 9.09528
 BUTTONS_HEIGHT_MAX = 47.9932
 TOP_HOLE_DEPTH_MIN = -4.186
@@ -49,21 +49,28 @@ cover = make_face(
 cover = extrude(
     cover, -(DEPTH_MAX_CAMERA - DEPTH_MIN + THICKNESS_BACK + THICKNESS_FRONT)
 ).move(Location((0, 0, THICKNESS_FRONT)))
-cover = chamfer(
-    fillet(
+cover = fillet(
+    chamfer(
         fillet(
-            cover.edges().filter_by(Axis.Z),
-            7,
+            fillet(
+                cover.edges().filter_by(Axis.Z),
+                7,
+            )
+            .edges()
+            .filter_by(Plane.XY)
+            .group_by(Axis.Z)[-1],
+            2,
         )
         .edges()
         .filter_by(Plane.XY)
-        .group_by(Axis.Z)[-1],
+        .group_by(Axis.Z)[0],
+        1.3,
         2,
     )
     .edges()
     .filter_by(Plane.XY)
-    .group_by(Axis.Z)[0],
-    2,
+    .group_by(Axis.Z)[1],
+    1.3,
 )
 
 right_hole = (
@@ -251,7 +258,7 @@ part = (
     - phone
     - bottom_hole
     - screen_hole
-    - inside_back_flattener
+    # - inside_back_flattener
     - camera_hole
     - top_hole
 )

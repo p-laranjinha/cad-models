@@ -6,7 +6,7 @@
   description = "Python development environment";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
   };
 
   outputs = {nixpkgs, ...}: let
@@ -62,7 +62,9 @@
             #  PYTHONPATH and thus make them accessible from within the venv.
             pythonPackages.numpy
 
-            pkgs.nodejs_23 # For pyright
+            pythonPackages.pip
+
+            pkgs.nodejs_24 # For pyright
             # pythonPackages.python-lsp-server
             # pythonPackages.python-lsp-ruff
             # pythonPackages.pylsp-mypy
@@ -96,7 +98,7 @@
           pip install -q -r requirements.txt
 
           echo
-          echo 'Run "yacv-frontend" to open the interface to view CAD models.'
+          echo 'Run "yacv-frontend" or go to "https://yeicor-3d.github.io/yet-another-cad-viewer" to open the interface to view CAD models.'
           echo 'Run "python <file-with-build123d-cad-models>.py" to build and show the models.'
           echo 'Run ":!python %" in NVIM to run the current file with python.'
           echo

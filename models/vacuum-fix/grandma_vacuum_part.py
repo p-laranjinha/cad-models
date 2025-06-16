@@ -1,5 +1,6 @@
 import os
 from build123d import (
+    Part,
     Axis,
     CenterArc,
     Circle,
@@ -33,7 +34,7 @@ top_arc_inner = CenterArc((0, 0), INNER_RADIUS, 1, 179)
 top_arc_outer = CenterArc((0, 0), INNER_RADIUS + ARC_THICKNESS, 0, 170)
 top_arc_clip_end = Line((-INNER_RADIUS, 0), (-INNER_RADIUS - ARC_THICKNESS - 3, 0))
 top_arc_hinge_end = Line(top_arc_inner @ 0, top_arc_outer @ 0)
-top_arc = top_arc_inner + top_arc_outer + top_arc_clip_end + top_arc_hinge_end
+top_arc = Part() + [top_arc_inner, top_arc_outer, top_arc_clip_end, top_arc_hinge_end]
 
 # Top part of the clip
 top_clip = Polyline(
@@ -59,12 +60,12 @@ top_hinge_top_wall = Line(top_hinge_arc_wall @ 1, top_hinge_hinge_wall @ 0)
 top_hinge_bottom_wall = Line(
     (INNER_RADIUS + ARC_THICKNESS, 0), top_hinge_hinge_wall @ 1
 )
-top_hinge_connection = (
-    top_hinge_arc_wall
-    + top_hinge_hinge_wall
-    + top_hinge_top_wall
-    + top_hinge_bottom_wall
-)
+top_hinge_connection = Part() + [
+    top_hinge_arc_wall,
+    top_hinge_hinge_wall,
+    top_hinge_top_wall,
+    top_hinge_bottom_wall,
+]
 inner_hinge = CenterArc(
     (INNER_RADIUS + ARC_THICKNESS + HINGE_THICKNESS + INNER_HINGE_RADIUS, 0),
     INNER_HINGE_RADIUS - TOLERANCE_GAP,
@@ -80,9 +81,12 @@ top_arc_clip_end = Line(
 )
 bottom_arc_clip_end = top_arc_clip_end
 bottom_arc_hinge_end = Line(bottom_arc_inner @ 0, bottom_arc_outer @ 0)
-bottom_arc = (
-    bottom_arc_inner + bottom_arc_outer + bottom_arc_clip_end + bottom_arc_hinge_end
-)
+bottom_arc = Part() + [
+    bottom_arc_inner,
+    bottom_arc_outer,
+    bottom_arc_clip_end,
+    bottom_arc_hinge_end,
+]
 
 # Bottom part of the clip
 bottom_clip = Polyline(
@@ -106,12 +110,12 @@ bottom_hinge_top_wall = Line(
     (INNER_RADIUS + ARC_THICKNESS, 0), bottom_hinge_hinge_wall @ 0
 )
 bottom_hinge_bottom_wall = Line(bottom_hinge_arc_wall @ 1, bottom_hinge_hinge_wall @ 1)
-bottom_hinge_connection = (
-    bottom_hinge_arc_wall
-    + bottom_hinge_hinge_wall
-    + bottom_hinge_top_wall
-    + bottom_hinge_bottom_wall
-)
+bottom_hinge_connection = Part() + [
+    bottom_hinge_arc_wall,
+    bottom_hinge_hinge_wall,
+    bottom_hinge_top_wall,
+    bottom_hinge_bottom_wall,
+]
 inner_hinge_hole = CenterArc(
     (INNER_RADIUS + ARC_THICKNESS + HINGE_THICKNESS + INNER_HINGE_RADIUS, 0),
     INNER_HINGE_RADIUS,

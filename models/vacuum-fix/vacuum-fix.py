@@ -1,26 +1,21 @@
 import os
-from build123d import (
-    Part,
-    Axis,
-    CenterArc,
-    Circle,
-    Compound,
-    Line,
-    Location,
-    Polyline,
-    export_step,
-    extrude,
-    make_face,
-)
+from build123d import *  # pyright: ignore
 from yacv_server import show
+
+# # Grandma sizes
+# INNER_DIAMETER = 37
+# SIDE_PEG_DIAMETER = 9.5
+# SIDE_PEG_HEIGHT = 6
+
+# Mom sizes
+INNER_DIAMETER = 39
+SIDE_PEG_DIAMETER = 9.8
+SIDE_PEG_HEIGHT = 6
 
 OPEN_DEGREE = 180
 
-INNER_DIAMETER = 37
 INNER_RADIUS = INNER_DIAMETER / 2
-SIDE_PEG_DIAMETER = 9.5
 SIDE_PEG_RADIUS = SIDE_PEG_DIAMETER / 2
-SIDE_PEG_HEIGHT = 6
 
 ARC_HALF_HEIGHT = SIDE_PEG_RADIUS + 2
 ARC_THICKNESS = 3

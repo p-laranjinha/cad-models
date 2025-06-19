@@ -1,6 +1,5 @@
 import os
 from build123d import *  # pyright: ignore
-from build123d import cast
 from yacv_server import show
 
 WIDTH = 183

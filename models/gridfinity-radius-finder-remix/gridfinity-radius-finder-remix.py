@@ -2,9 +2,8 @@ import math
 import os
 from build123d import *  # pyright: ignore
 from build123d import cast
-from yacv_server import show
 
-# WARN: Very sharp corners cause the bottom chamfer to fail and error.
+# WARNING: Very sharp corners cause the bottom chamfer to fail and error.
 
 INNER_ARC = 60
 OUTER_ARC = 90
@@ -17,8 +16,6 @@ EXCEPTION_ARCS = {
 
 WIDTH = 32
 THICKNESS = 2
-
-ARC_SPACER_LENGTH = 0.5
 
 OTHER_CORNER_FILLET_RADIUS = 2
 
@@ -143,12 +140,10 @@ for radius in range(MIN_RADIUS, MAX_RADIUS + 1):
 
     part = Part() + part - text
 
-    export_step(
+    export_stl(
         part,
         OUTPUT_DIR
         + "/piece-"
         + str(radius).rjust(len(str(MAX_RADIUS)) - len(str(radius)) + 1, "0")
-        + ".step",
+        + ".stl",
     )
-
-show(part, names="part")  # pyright: ignore

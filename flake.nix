@@ -95,7 +95,7 @@
             kill $P1
           ''} &"
 
-          pip install -q -r requirements.txt
+          pip install -r requirements.txt
 
           echo
           echo 'Run "yacv-frontend" or go to "https://yeicor-3d.github.io/yet-another-cad-viewer" to open the interface to view CAD models.'

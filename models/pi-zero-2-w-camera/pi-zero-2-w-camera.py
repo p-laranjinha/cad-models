@@ -580,15 +580,11 @@ def get_camera_module_enclosure():
         .filter_by(Axis.Z)
         .group_by(Axis.Y)[-1]
         .group_by(Axis.X)[-2],
-        CM_BOARD_DEPTH / 2,
+        BOARD_DEPTH / 2,
     )
     middle_walls = chamfer(
         middle_walls.edges().filter_by(Axis.Z).group_by(Axis.Y)[-1].group_by(Axis.X)[1],
-        CM_BOARD_DEPTH / 2,
-    )
-    middle_walls = chamfer(
-        middle_walls.edges().filter_by(Axis.Z).group_by(Axis.Y)[0].group_by(Axis.X)[1],
-        CM_BOARD_DEPTH / 2,
+        BOARD_DEPTH / 2,
     )
 
     front_wall_bottom = Box(

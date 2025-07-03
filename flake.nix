@@ -11,9 +11,9 @@
 
   outputs = {nixpkgs, ...}: let
     system = "x86_64-linux";
-    pkgs = import nixpkgs {inherit system;};
   in {
     devShells.${system} = let
+      pkgs = import nixpkgs {inherit system;};
       python = pkgs.python311;
       pythonPackages = python.pkgs;
       # A set of system dependencies for Python modules.
@@ -44,6 +44,29 @@
         url = "https://github.com/yeicor-3d/yet-another-cad-viewer/releases/download/v0.9.3/frontend.zip";
         sha256 = "sha256-d5qKs9h4q9/hquVgWFb10KSE2gWTSAZQgYo9l0bzdVM=";
       };
+
+      # fetch git pip dependencies so they aren't downloaded everytime on pip install
+      # it still requires internet but its at least faster
+      bd_warehouse = pkgs.fetchgit {
+        url = "https://github.com/gumyr/bd_warehouse.git";
+        rev = "97112a02d9538d57740a005a7802dd149d797568";
+        sha256 = "sha256-W9/JbowKIC0NMo2rH0MTgx8dephsfeZ1jJqCJPN4MlE=";
+        deepClone = true;
+      };
+      cq_gears = pkgs.fetchgit {
+        url = "https://github.com/meadiode/cq_gears.git";
+        rev = "e73874cf17a25447a99b1e7c22a4d5af38560e9c";
+        sha256 = "sha256-DrIqMNxXx8Pokm3qjEZX43wSBJELM9Cu2iZIAlYf5EA=";
+        deepClone = true;
+      };
+      pythonRequirements = pkgs.writeText "requirements.txt" ''
+        # cadquery
+        build123d == 0.9.1
+        yacv-server == 0.9.5
+        # git+https://github.com/Ruudjhuu/gridfinity_build123d.git@8d3118902e98a5cb3f0b511a935d330c8465c7a0
+        git+file://${bd_warehouse}
+        git+file://${cq_gears}
+      '';
     in {
       default = pkgs.mkShell {
         venvDir = ".venv";
@@ -95,10 +118,10 @@
             kill $P1
           ''} &"
 
-          pip install -r requirements.txt
+          pip install -r ${pythonRequirements}
 
           echo
-          echo 'Run "yacv-frontend" or go to "https://yeicor-3d.github.io/yet-another-cad-viewer" to open the interface to view CAD models.'
+          echo 'Run "yacv-frontend" or go to "https://yeicor-3d.github.io/yet-another-cad-viewer" to open the interface to view CAD modelsewhere.'
           echo 'Run "python <file-with-build123d-cad-models>.py" to build and show the models.'
           echo 'Run ":!python %" in NVIM to run the current file with python.'
           echo

@@ -1,12 +1,12 @@
 import os
 from yacv_server import show
 from build123d import *  # pyright: ignore
-from build123d import cast
 from switch_holder import (
     HOLDER_DEPTH,
     HOLDER_HEIGHT,
     render_switch_holder,
 )
+from switch_hole import render_switch_hole
 
 holder = render_switch_holder()
 
@@ -21,3 +21,9 @@ export_stl(
 
 part.color = (0.3, 0.3, 0.3, 1)
 show(part, names="Part")  # pyright: ignore
+
+switch_hole = render_switch_hole()
+export_stl(
+    switch_hole,
+    os.path.dirname(os.path.realpath(__file__)) + "/klavgen_switch_hole.stl",
+)

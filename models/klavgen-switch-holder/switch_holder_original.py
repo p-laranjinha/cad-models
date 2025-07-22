@@ -20,8 +20,6 @@ from mx_socket import (
 
 # Inspired and adapted from https://github.com/klavgen/klavgen
 
-EXTRA_HOLDER_FRONT_WALL_DEPTH = 0.6
-
 # Key config
 SWITCH_WIDTH = 14
 SWITCH_DEPTH = 14
@@ -109,10 +107,7 @@ HOLDER_SIDE_LIPS_TOP_WIDTH = 0.6
 
 # Top front lip
 HOLDER_FRONT_LIP_SIDE_PLATE_GAP = 0.2
-HOLDER_FRONT_LIP_HEIGHT = 3.4
-HOLDER_FRONT_LIP_HOLE_HEIGHT = 2
-HOLDER_FRONT_LIP_HOLE_WIDTH = 4.2
-HOLDER_FRONT_LIP_HOLE_DISTANCE_FROM_TOP = 2.9
+HOLDER_FRONT_LIP_HEIGHT = 1.8
 
 #
 # Base holes for switch plastic pins
@@ -195,9 +190,7 @@ BACK_SIDE_CUT_START_BEHIND_LIPS = 1
 BACK_SIDE_CUT_LEFT_WIDTH = 1
 BACK_SIDE_CUT_RIGHT_WIDTH = 1
 
-HOLDER_FRONT_WALL_DEPTH = (
-    PLATE_FRONT_HOLE_DEPTH - HOLDER_PLATE_GAP + EXTRA_HOLDER_FRONT_WALL_DEPTH
-)
+HOLDER_FRONT_WALL_DEPTH = PLATE_FRONT_HOLE_DEPTH - HOLDER_PLATE_GAP
 
 HOLDER_WIDTH = SWITCH_HOLE_WIDTH + 2 * HOLDER_SIDE_BOTTOM_WALL_WIDTH
 HOLDER_DEPTH = SWITCH_HOLE_DEPTH + 2 * HOLDER_FRONT_WALL_DEPTH
@@ -583,7 +576,7 @@ def render_switch_holder():
             * Pos(
                 -HOLDER_WIDTH / 2 + HOLDER_SIDE_TOP_WALL_X_OFFSET,
                 HOLDER_HEIGHT,
-                SWITCH_HOLE_DEPTH / 2 + EXTRA_HOLDER_FRONT_WALL_DEPTH,
+                SWITCH_HOLE_DEPTH / 2,
             )
             * lips
         )
@@ -601,11 +594,7 @@ def render_switch_holder():
         top_left_lip_side_cut = extrude(top_left_lip_side_cut, HOLDER_WIDTH)
         top_left_lip_side_cut = (
             Plane.YZ
-            * Pos(
-                -SWITCH_HOLE_DEPTH / 2 - EXTRA_HOLDER_FRONT_WALL_DEPTH,
-                HOLDER_HEIGHT,
-                -HOLDER_WIDTH / 2 - 2,
-            )
+            * Pos(-SWITCH_HOLE_DEPTH / 2, HOLDER_HEIGHT, -HOLDER_WIDTH / 2 - 2)
             * top_left_lip_side_cut
         )
         top_left_lip_side_cut = cast(Part, top_left_lip_side_cut)
@@ -639,25 +628,6 @@ def render_switch_holder():
 
     top_lips = draw_top_lips()
     holder += top_lips
-    # Add a hole so the switch grabs to the holder
-    front_hole = Box(
-        HOLDER_FRONT_LIP_HOLE_WIDTH,
-        HOLDER_FRONT_WALL_DEPTH,
-        HOLDER_FRONT_LIP_HOLE_HEIGHT,
-        align=(Align.CENTER, Align.MIN, Align.MIN),
-    )
-    front_hole = (
-        Pos(
-            0,
-            -HOLDER_DEPTH / 2,
-            HOLDER_HEIGHT
-            + HOLDER_FRONT_LIP_HEIGHT
-            - HOLDER_FRONT_LIP_HOLE_HEIGHT
-            - HOLDER_FRONT_LIP_HOLE_DISTANCE_FROM_TOP,
-        )
-        * front_hole
-    )
-    holder -= cast(Part, front_hole)
 
     # Switch bottom hole
     switch_bottom_hole = Box(

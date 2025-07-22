@@ -60,8 +60,7 @@
         deepClone = true;
       };
       pythonRequirements = pkgs.writeText "requirements.txt" ''
-        # cadquery
-        build123d == 0.9.1
+        build123d == 0.9.1 # includes cadquery
         yacv-server == 0.9.5
         # git+https://github.com/Ruudjhuu/gridfinity_build123d.git@8d3118902e98a5cb3f0b511a935d330c8465c7a0
         git+file://${bd_warehouse}

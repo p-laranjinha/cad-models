@@ -4,13 +4,12 @@ from yacv_server import show
 from build123d import *  # pyright: ignore
 
 # Deepest sound I found was low inner ceiling with low infill
+# PETG sounds deeper than PLA, but the PETG surface is rougher
 
 # Less than 3 side walls adds holes to the top and makes it look bad
 
 # Having the seam at a corner can cause the corner to lift
 # to fix this either don't have a minimum radius corner or paint the seam yourself
-
-# TODO: try out printing with PETG
 
 HEIGHT = 9.1
 BOTTOM_WIDTH = 18

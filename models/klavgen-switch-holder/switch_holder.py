@@ -583,7 +583,7 @@ def render_switch_holder():
             * Pos(
                 -HOLDER_WIDTH / 2 + HOLDER_SIDE_TOP_WALL_X_OFFSET,
                 HOLDER_HEIGHT,
-                SWITCH_HOLE_DEPTH / 2 + EXTRA_HOLDER_FRONT_WALL_DEPTH,
+                SWITCH_HOLE_DEPTH / 2 + EXTRA_HOLDER_FRONT_WALL_DEPTH - 0.1,
             )
             * lips
         )
@@ -602,7 +602,7 @@ def render_switch_holder():
         top_left_lip_side_cut = (
             Plane.YZ
             * Pos(
-                -SWITCH_HOLE_DEPTH / 2 - EXTRA_HOLDER_FRONT_WALL_DEPTH,
+                -SWITCH_HOLE_DEPTH / 2 - EXTRA_HOLDER_FRONT_WALL_DEPTH + 0.1,
                 HOLDER_HEIGHT,
                 -HOLDER_WIDTH / 2 - 2,
             )

@@ -1,6 +1,6 @@
 import os
 from build123d import cast
-from yacv_server import show
+from ocp_vscode import *  # pyright: ignore
 from build123d import *  # pyright: ignore
 
 # Deepest sound I found was low inner ceiling with low infill
@@ -243,10 +243,10 @@ text = split(
 )
 
 # keycap = split(keycap, Plane.ZX)
-
+keycap.label = "keycap"
+text.label = "text"  # Doesn't work on the export but works on the show
 part = Compound(children=[keycap, text])
 
 export_step(part, os.path.dirname(os.path.realpath(__file__)) + "/keycap.step")
 
-part.color = (0.3, 0.3, 0.3, 1)
-show(part, names="Part")  # pyright: ignore
+show(part)

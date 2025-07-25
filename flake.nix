@@ -62,6 +62,7 @@
       pythonRequirements = pkgs.writeText "requirements.txt" ''
         build123d == 0.9.1 # includes cadquery
         yacv-server == 0.9.5
+        ocp_vscode == 2.8.9 # https://github.com/bernhard-42/vscode-ocp-cad-viewer
         # git+https://github.com/Ruudjhuu/gridfinity_build123d.git@8d3118902e98a5cb3f0b511a935d330c8465c7a0
         git+file://${bd_warehouse}
         git+file://${cq_gears}
@@ -110,19 +111,27 @@
           #export QT_QPA_PLATFORM_PLUGIN_PATH="{pkgs.kdePackages.qtbase}/lib/qt-6/plugins/platforms"
           #export QT_QPA_PLATFORM="minimal"
 
-          alias yacv-frontend="nohup ${pkgs.writeShellScript "yacv-frontend" ''
+          alias yacv-frontend="${pkgs.writeShellScript "yacv-frontend" ''
             python -m http.server -d ${yacv-frontend} &
             P1=$!
             chromium --app="http://0.0.0.0:8000"
             kill $P1
-          ''} &"
+          ''} > /dev/null 2>&1 &"
+
+          alias ocp_vscode="${pkgs.writeShellScript "ocp-vscode" ''
+            python -m ocp_vscode --theme 'dark'&
+            P1=$!
+            chromium --app="http://0.0.0.0:3939/viewer" --enable-viewport --enable-features=WebContentsForceDark
+            kill $P1
+          ''} > /dev/null 2>&1 &"
 
           pip install -r ${pythonRequirements}
 
           echo
-          echo 'Run "yacv-frontend" or go to "https://yeicor-3d.github.io/yet-another-cad-viewer" to open the interface to view CAD modelsewhere.'
+          echo 'Run "ocp_vscode" to open the "OCP CAD Viewer for VS Code (standalone)" to view CAD models.'
           echo 'Run "python <file-with-build123d-cad-models>.py" to build and show the models.'
           echo 'Run ":!python %" in NVIM to run the current file with python.'
+          echo 'Run "yacv-frontend" or go to "https://yeicor-3d.github.io/yet-another-cad-viewer" to open the "Yet Another CAD Viewer" interface to view CAD models.'
           echo
         '';
       };

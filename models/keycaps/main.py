@@ -1,6 +1,5 @@
 import os
 from build123d import cast
-from numpy import double
 from ocp_vscode import *  # pyright: ignore
 from build123d import *  # pyright: ignore
 

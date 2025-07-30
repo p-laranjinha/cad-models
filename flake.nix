@@ -119,7 +119,7 @@
           ''} > /dev/null 2>&1 &"
 
           alias ocp_vscode="${pkgs.writeShellScript "ocp-vscode" ''
-            python -m ocp_vscode --theme 'dark'&
+            python -m ocp_vscode --theme 'dark' --reset_camera 'keep' &
             P1=$!
             chromium --app="http://0.0.0.0:3939/viewer" --enable-viewport --enable-features=WebContentsForceDark
             kill $P1

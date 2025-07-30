@@ -20,7 +20,7 @@ from mx_socket import (
 
 # Inspired and adapted from https://github.com/klavgen/klavgen
 
-EXTRA_HOLDER_FRONT_WALL_DEPTH = 0.6
+EXTRA_HOLDER_FRONT_WALL_DEPTH = 0  # 0.6
 
 # Key config
 SWITCH_WIDTH = 14
@@ -109,10 +109,10 @@ HOLDER_SIDE_LIPS_TOP_WIDTH = 0.6
 
 # Top front lip
 HOLDER_FRONT_LIP_SIDE_PLATE_GAP = 0.2
-HOLDER_FRONT_LIP_HEIGHT = 3.4
+HOLDER_FRONT_LIP_HEIGHT = 1.8  # + 1.6
 HOLDER_FRONT_LIP_HOLE_HEIGHT = 2
 HOLDER_FRONT_LIP_HOLE_WIDTH = 4.2
-HOLDER_FRONT_LIP_HOLE_DISTANCE_FROM_TOP = 2.9
+HOLDER_FRONT_LIP_HOLE_DISTANCE_FROM_TOP = 1.3  # + 1.6
 
 #
 # Base holes for switch plastic pins

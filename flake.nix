@@ -40,17 +40,13 @@
         #libsForQt5.qt5.wrapQtAppsHook
         #libsForQt5.qt5.qtwayland
       ];
-      yacv-frontend = pkgs.fetchzip {
-        url = "https://github.com/yeicor-3d/yet-another-cad-viewer/releases/download/v0.9.3/frontend.zip";
-        sha256 = "sha256-d5qKs9h4q9/hquVgWFb10KSE2gWTSAZQgYo9l0bzdVM=";
-      };
 
       # fetch git pip dependencies so they aren't downloaded everytime on pip install
       # it still requires internet but its at least faster
       bd_warehouse = pkgs.fetchgit {
         url = "https://github.com/gumyr/bd_warehouse.git";
         rev = "97112a02d9538d57740a005a7802dd149d797568";
-        sha256 = "sha256-W9/JbowKIC0NMo2rH0MTgx8dephsfeZ1jJqCJPN4MlE=";
+        sha256 = "sha256-gtkR610dCjOcWBnaohSJ7SD1Ki0k3hy4OIGHvsg/Zt4=";
         deepClone = true;
       };
       cq_gears = pkgs.fetchgit {
@@ -60,9 +56,8 @@
         deepClone = true;
       };
       pythonRequirements = pkgs.writeText "requirements.txt" ''
-        build123d == 0.9.1 # includes cadquery
-        yacv-server == 0.9.5
-        ocp_vscode == 2.8.9 # https://github.com/bernhard-42/vscode-ocp-cad-viewer
+        build123d == 0.10.0 # includes cadquery
+        ocp_vscode == 3.0.0 # https://github.com/bernhard-42/vscode-ocp-cad-viewer
         # git+https://github.com/Ruudjhuu/gridfinity_build123d.git@8d3118902e98a5cb3f0b511a935d330c8465c7a0
         git+file://${bd_warehouse}
         git+file://${cq_gears}
@@ -73,7 +68,6 @@
 
         buildInputs =
           [
-            yacv-frontend
             pkgs.ungoogled-chromium
 
             # A Python interpreter including the 'venv' module is required to bootstrap the environment.
@@ -112,14 +106,14 @@
           #export QT_QPA_PLATFORM="minimal"
 
           alias yacv-frontend="${pkgs.writeShellScript "yacv-frontend" ''
-            python -m http.server -d ${yacv-frontend} &
             P1=$!
-            chromium --app="http://0.0.0.0:8000"
+            chromium --app="https://yeicor-3d.github.io/yet-another-cad-viewer/"
             kill $P1
           ''} > /dev/null 2>&1 &"
 
           alias ocp_vscode="${pkgs.writeShellScript "ocp-vscode" ''
             python -m ocp_vscode --theme 'dark' --reset_camera 'keep' &
+            sleep 3
             P1=$!
             chromium --app="http://0.0.0.0:3939/viewer" --enable-viewport --enable-features=WebContentsForceDark
             kill $P1
